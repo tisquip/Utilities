@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Utilities.Extentions
 {
@@ -10,62 +9,37 @@ namespace Utilities.Extentions
         {
             bool exists = false;
 
-            if (!val.IsNullOrWhiteSpace())
+            if (!val.IsNullOrWhiteSpace() && listToCheck.Count > 0)
             {
-                if (listToCheck.Count > 0)
-                {
-                    val = val.Trim().ToUpper();
-                    List<string> listSorted = new List<string>();
-                    listToCheck.ForEach((value) => listSorted.Add(value.Trim().ToUpper()));
-                    exists = listSorted.Contains(val);
-                }
+                List<string> listSorted = new List<string>();
+                listToCheck.ForEach((value) => listSorted.Add(value.Trim().ToUpper()));
+                exists = listSorted.Contains(val.Trim().ToUpper());
             }
 
             return exists;
         }
 
-        public static bool IsNullOrWhiteSpace(this string val)
-        {
-            return String.IsNullOrWhiteSpace(val);
-        }
+        public static bool IsNullOrWhiteSpace(this string val) => String.IsNullOrWhiteSpace(val);
 
 
-        public static bool IsNotNullOrWhiteSpace(this string val)
-        {
-            return !val.IsNullOrWhiteSpace();
-        }
+        public static bool IsNotNullOrWhiteSpace(this string val) => !val.IsNullOrWhiteSpace();
 
-        public static string IsNullOrWhiteSpaceReplace(this string val, string valToReplace = "")
-        {
-            string valueToReturn = !val.IsNullOrWhiteSpace() ? val : valToReplace;
-            return valueToReturn;
-        }
+        public static string IsNullOrWhiteSpaceReplace(this string val, string valToReplace = "") => !val.IsNullOrWhiteSpace() ? val : valToReplace;
 
-        public static bool IsNull(this object obj)
-        {
-            return obj == null;
-        }
+        public static bool IsNull(this object obj) => obj == null;
 
-        public static bool IsNotNull(this object obj)
-        {
-            return obj != null;
-        }
+        public static bool IsNotNull(this object obj) => obj != null;
 
-        public static string ToStringJson(this object val)
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(val);
-        }
+        public static string ToStringJson(this object val) => Newtonsoft.Json.JsonConvert.SerializeObject(val);
 
         public static string JSAddToList(this string val, int numToAdd, bool shouldBeUniquie = true, Predicate<List<int>> predicate = null)
         {
-
             if (predicate == null)
             {
-                predicate = (list) => true;
+                predicate = _ => true;
             }
 
-
-            List<int> ints = val.IsNullOrWhiteSpaceReplace("[]").Deserialize<List<int>>();
+            List<int> ints = val.Deserialize<List<int>>(defaultNullOrEmptyStringToEmptyArray: true);
 
             if (shouldBeUniquie)
             {
@@ -82,9 +56,7 @@ namespace Utilities.Extentions
                 }
             }
 
-            val = ints.ToStringJson();
-
-            return val;
+            return ints.ToStringJson();
         }
 
 
@@ -93,10 +65,10 @@ namespace Utilities.Extentions
 
             if (predicate == null)
             {
-                predicate = (list) => true;
+                predicate = _ => true;
             }
 
-            List<int> ints = val.IsNullOrWhiteSpaceReplace("[]").Deserialize<List<int>>();
+            List<int> ints = val.Deserialize<List<int>>(defaultNullOrEmptyStringToEmptyArray: true);
 
             if (ints.Contains(numToRemove))
             {
@@ -116,9 +88,7 @@ namespace Utilities.Extentions
                 }
             }
 
-            val = ints.ToStringJson();
-
-            return val;
+            return ints.ToStringJson();
         }
 
         public static T Deserialize<T>(this string jsonString, bool defaultNullOrEmptyStringToEmptyArray = false)
