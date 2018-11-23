@@ -6,6 +6,8 @@
     <Description>Various helpers and other utilites that may be added for faster development</Description>
     <RepositoryType>Git</RepositoryType>
     <RepositoryUrl>https://github.com/tisquip/Utilities</RepositoryUrl>
+    <Version>0.1.0</Version>
+    <PackageReleaseNotes>This is a pre-release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
