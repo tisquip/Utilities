@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Kudzanayi Takaendesa - tisquip6@gmail.com</Authors>
+    <Description>Various helpers and other utilites that may be added for faster development</Description>
+    <RepositoryType>Git</RepositoryType>
+    <RepositoryUrl>https://github.com/tisquip/Utilities</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
